@@ -1,0 +1,40 @@
+{
+  "name": "gulp_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0"
+  },
+  "devDependencies": {
+    "gulp-cache": "^1.0.2",
+    "gulp-file-include": "^2.0.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jshint": "^2.1.0",
+    "imagemin-pngquant": "^5.1.0",
+    "jshint": "^2.9.5"
+  },
+  "scripts": {
+    "gulp dev": "./node_modules/gulp/bin/gulp.js"
+  },
+  "bin": {
+    "gulp": "./node_modules/gulp/bin/gulp.js"
+  },
+  "jshintConfig": {
+    "undef": true,
+    "unused": true,
+    "predef": [
+      "MY_GLOBAL",
+      "ads"
+    ]
+  },
+  "author": "",
+  "license": "ISC"
+}
