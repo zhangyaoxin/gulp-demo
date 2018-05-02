@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     gulp_sass = require('gulp-sass'), //编译sass文件
     gulp_imagemin = require('gulp-imagemin'), //压缩图片
     pngquant = require('imagemin-pngquant'), //压缩png图片
-    cache = require('gulp-cache') //只压缩修改的图片 压缩图片时比较耗时，在很多情况下我们只修改了某些图片，没有必要压缩所有图片
+    cache = require('gulp-cache'), //只压缩修改的图片 压缩图片时比较耗时，在很多情况下我们只修改了某些图片，没有必要压缩所有图片
+    livereload = require('gulp-livereload') //自动刷新
 
 ;
 
@@ -34,6 +35,7 @@ gulp.task('gulp-uglify',function(){ //压缩js文件 并重命名
     gulp.src(['js/**.js'])
         .pipe(gulp_uglify())
         .pipe(gulp_rename({suffix: '.min'})) 
+        .pipe(livereload())  //自动刷新文件
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -78,6 +80,7 @@ gulp.task('gulp-sass',function(){ // 编译sass文件
 
 })
 
+// 因为文件里有两个图片是压缩过的 所以不会进行压缩
 gulp.task('imagemin',function(){
     return gulp.src(['images/*.{png,jpg,gif,ico}'])
         .pipe(gulp_imagemin({ //cache添加是只压缩修改的图片
@@ -89,6 +92,7 @@ gulp.task('imagemin',function(){
 
 })
 
+// 可以添加其他压缩文件要求
 // use: [imagemin_pngquant()] ,//使用pngquant来压缩png图片
 // optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
 // progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
@@ -97,6 +101,7 @@ gulp.task('imagemin',function(){
 
 gulp.task('auto',function(){
     // 监听文件修改，当文件被修改后执行任务
+    livereload.listen();
     gulp.watch(['js/*.js'],['gulp-uglify']);  //只要js文件有变化就会进行下一步新的压缩
     gulp.watch(['css/*.css'],['gulp-clean-css']);
     gulp.watch(['html/**/*.html',['fileinclude']]);
